@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+    index_range function file for pagination
+"""
+
 
 def index_range(page, page_size):
     """ Calculate the start and end indices for pagination."""
