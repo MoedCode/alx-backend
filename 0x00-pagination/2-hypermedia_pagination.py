@@ -50,22 +50,7 @@ class Server:
             all_data[Idx[0]: Idx[1]]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """
-        Returns a dictionary with the following information:
-
-        page_size: Size of the dataset page returned.
-        page: Current page number.
-        data: Dataset page (same as the previous task's return).
-        next_page: Number of the next page; None if no next page.
-        prev_page: Number of the previous page; None if no previous page.
-        total_pages: Total number of pages in the dataset.
-        Args:
-        page (int): Current page number.
-        page_size (int): Size of each page.
-
-        Returns:
-        dict: Dictionary containing the specified key-value pairs.
-        """
+        """ Returns a dictionary with the following information: """
         assert isinstance(page, int) and isinstance(page_size, int)
         assert page > 0 and page_size > 0
         all_data = self.dataset()
