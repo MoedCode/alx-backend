@@ -50,9 +50,6 @@ class Server:
             all_data[Idx[0]: Idx[1]]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
-        assert isinstance(page, int) and isinstance(page_size, int)
-        assert page > 0 and page_size > 0
-        all_data = self.dataset()
         """
         Returns a dictionary with the following information:
 
@@ -69,6 +66,9 @@ class Server:
         Returns:
         dict: Dictionary containing the specified key-value pairs.
         """
+        assert isinstance(page, int) and isinstance(page_size, int)
+        assert page > 0 and page_size > 0
+        all_data = self.dataset()
         data = self.get_page(page, page_size)
         total_pages = math.ceil(len(all_data)/page_size)
         next_page = page + 1 if page + 1 < total_pages else None
