@@ -41,8 +41,13 @@ class Server:
         assert page > 0 and page_size > 0
         all_data = self.dataset()
         Idx = index_range(page, page_size)
-        return [] if Idx[0] >= len(all_data) else\
-            all_data[Idx[0]: Idx[1]]
+        batch = []
+        for i in range(Idx[0], Idx[1]):
+            batch.append(all_data[i])
+        return batch
+
+        # return [] if Idx[0] >= len(all_data) else\
+        #     all_data[Idx[0]: Idx[1]]
 
 
 def index_range(page, page_size):
