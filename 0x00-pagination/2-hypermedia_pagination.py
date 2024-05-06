@@ -41,13 +41,26 @@ class Server:
         assert page > 0 and page_size > 0
         all_data = self.dataset()
         Idx = index_range(page, page_size)
-        batch = []
-        for i in range(Idx[0], Idx[1]):
-            batch.append(all_data[i])
-        return batch
+        # batch = []
+        # for i in range(Idx[0], Idx[1]):
+        #     batch.append(all_data[i])
+        # return batch
 
-        # return [] if Idx[0] >= len(all_data) else\
-        #     all_data[Idx[0]: Idx[1]]
+        return [] if Idx[0] >= len(all_data) else\
+            all_data[Idx[0]: Idx[1]]
+
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+        assert isinstance(page, int) and isinstance(page_size, int)
+        assert page > 0 and page_size > 0
+        all_data = self.dataset()
+
+        data = self.get_page(page, page_size)
+        total_pages = math.ceil(len(all_data)/page_size)
+        next_page = page + 1 if page + 1 < total_pages else None
+        prev_page = page - 1 if page - 1 >= 2 else None
+
+        Idx = index_range(page, page_size)
+        return {'page_size': page_size, 'page': page, 'data': data, 'next_page': next_page, 'prev_page': prev_page, 'total_pages': total_pages}
 
 
 def index_range(page, page_size):
@@ -59,24 +72,12 @@ def index_range(page, page_size):
 
 if __name__ == "__main__":
 
-    Server = __import__('1-simple_pagination').Server
-
     server = Server()
 
-    try:
-        should_err = server.get_page(-10, 2)
-    except AssertionError:
-        print("AssertionError raised with negative values")
-
-    try:
-        should_err = server.get_page(0, 0)
-    except AssertionError:
-        print("AssertionError raised with 0")
-
-    try:
-        should_err = server.get_page(2, 'Bob')
-    except AssertionError:
-        print("AssertionError raised when page and/or page_size are not ints")
-    print(server.get_page(1, 3))
-    print(server.get_page(3, 2))
-    print(server.get_page(3000, 100))
+    print(server.get_hyper(1, 2))
+    print("---")
+    print(server.get_hyper(2, 2))
+    print("---")
+    print(server.get_hyper(100, 3))
+    print("---")
+    print(server.get_hyper(3000, 100))
