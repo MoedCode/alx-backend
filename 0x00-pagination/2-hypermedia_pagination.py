@@ -53,7 +53,22 @@ class Server:
         assert isinstance(page, int) and isinstance(page_size, int)
         assert page > 0 and page_size > 0
         all_data = self.dataset()
+        """
+        Returns a dictionary with the following information:
 
+        page_size: Size of the dataset page returned.
+        page: Current page number.
+        data: Dataset page (same as the previous task's return).
+        next_page: Number of the next page; None if no next page.
+        prev_page: Number of the previous page; None if no previous page.
+        total_pages: Total number of pages in the dataset.
+        Args:
+        page (int): Current page number.
+        page_size (int): Size of each page.
+
+        Returns:
+        dict: Dictionary containing the specified key-value pairs.
+        """
         data = self.get_page(page, page_size)
         total_pages = math.ceil(len(all_data)/page_size)
         next_page = page + 1 if page + 1 < total_pages else None
