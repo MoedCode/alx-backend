@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-Deletion-resilient hypermedia pagination
+    index_range function file for pagination
 """
-
 import csv
 import math
 from typing import List, Dict
@@ -56,8 +55,12 @@ class Server:
          for i in keys if i >= index and len(focus) <= page_size]
         data = [dataset[v] for v in focus[:-1]]
         next_index = focus[-1] if len(focus) - page_size == 1 else None
-        return {'index': index, 'data': data,
-                'page_size': len(data), 'next_index': next_index}
+        return {
+            'index': index,
+            'data': data,
+            'page_size': len(data),
+            'next_index': next_index
+        }
 
 
 if __name__ == "__main__":
