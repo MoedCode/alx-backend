@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-    index_range function file for pagination
+Deletion-resilient hypermedia pagination
 """
+
 import csv
 import math
 from typing import List, Dict
@@ -69,7 +70,6 @@ if __name__ == "__main__":
         server.get_hyper_index(300000, 100)
     except AssertionError:
         print("AssertionError raised when out of range")
-
 
     index = 3
     page_size = 2
