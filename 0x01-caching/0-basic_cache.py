@@ -15,12 +15,14 @@ class BasicCache(BaseCaching):
     def put(self, key, item):
         """Add an item to the cache if both key and item are not None."""
         if key is not None and item is not None:
-            return self.cache_data[key] = item
+            self.cache_data[key] = item
+        return
 
     def get(self, key):
         """Retrieve an item from the cache if key exists and its value is not None."""
         if key in self.cache_data and self.cache_data[key] is not None:
             return self.cache_data[key]
+        return None
 
 
 if __name__ == "__main__":
