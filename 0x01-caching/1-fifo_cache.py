@@ -14,7 +14,7 @@ class FIFOCache(BaseCaching):
         """Add an item to the cache if both key and item are """
         if key is None or item is None:
             return
-        if len(self.cache_data) > self.MAX_ITEMS:
+        if len(self.cache_data) >= self.MAX_ITEMS:
             first_in = list(self.cache_data.keys())[0]
             if key not in self.cache_data:
                 print("DISCARD: {}".format(first_in))
