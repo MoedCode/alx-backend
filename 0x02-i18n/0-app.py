@@ -10,7 +10,7 @@ bable = Babel(app)
 
 
 @app.route('/',  strict_slashes=False)
-def index():
+def index() -> str:
     """ Define route for the home page"""
     return render_template("0-index.html")
 
