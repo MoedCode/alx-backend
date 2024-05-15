@@ -30,16 +30,6 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
-@babel.localeselector
-def get_locale() -> str:
-    """determine the best match with our supported languages
-    """
-    loca = request.args.get('locale')
-    if loca in app.config['LANGUAGES']:
-        return loca
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 def get_user():
     """
     Returns a user dictionary or None if ID value can't be found
@@ -58,6 +48,16 @@ def before_request():
     """
     user = get_user()
     g.user = user
+
+
+@babel.localeselector
+def get_locale():
+    """determine the best match with our supported languages
+    """
+    loca = request.args.get('locale')
+    if loca in app.config['LANGUAGES']:
+        return loca
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
