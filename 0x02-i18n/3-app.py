@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
+"""A Basic Flask app with internationalization support.
 """
-First you will setup a basic bable Flask app
-"""
-from flask import (
-    Flask, render_template, request
-)
 from flask_babel import Babel
+from flask import Flask, render_template, request
 
 
-class Config(object):
-    """
-    configure available languages in our appConfiguration for Babel
+class Config:
+    """configure available languages in our appConfiguration for Babel
     """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
@@ -18,21 +14,21 @@ class Config(object):
 
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 app.config.from_object(Config)
+app.url_map.strict_slashes = False
 babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
-    """ determine the best match with our supported languages """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-@app.route('/', strict_slashes=False)
-def index() -> str:
+def get_locale() -> str:
+    """determine the best match with our supported languages
     """
-    Define route for the home page
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
+
+
+@app.route('/')
+def get_index() -> str:
+    """Define route for the home page
     """
     return render_template('3-index.html')
 
