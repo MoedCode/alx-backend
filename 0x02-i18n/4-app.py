@@ -8,7 +8,7 @@ from flask import (
 from flask_babel import Babel
 
 
-class Config:
+class Config(object):
     """configure available languages in our appConfiguration for Babel
     """
     LANGUAGES = ["en", "fr"]
@@ -18,7 +18,7 @@ class Config:
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.url_map.strict_slashes = False
+# app.url_map.strict_slashes = False
 babel = Babel(app)
 
 
@@ -26,7 +26,10 @@ babel = Babel(app)
 def get_locale() -> str:
     """determine the best match with our supported languages
     """
-    return request.accept_languages.best_match(app.config["LANGUAGES"])
+    loca = request.args.get('locale')
+    if loca in app.config['LANGUAGES']:
+        return loca
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
